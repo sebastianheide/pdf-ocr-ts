@@ -1,1 +1,1 @@
-# pdf-ocr
+# pdf-ocr-ts
