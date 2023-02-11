@@ -1,7 +1,7 @@
 # pdf-ocr-ts
 pdf-ocr-ts creates searchable PDF files out of PDF files that only have images (e.g. scanned documents).
 It is javascript-only and hence works without the need to install further tools.
-Under the hood it uses pdf.js to render the pages within a pdf to png files, Jimp to create compressed jpeg images, tesseract.js to perform ocr and pdf-lib to merge the single page pdfs tesseract.js is creating.
+Under the hood it uses pdf.js to render the pages within a pdf to png files, Jimp to create compressed jpeg images, tesseract.js to perform ocr and pdf-lib to merge the single page pdfs tesseract.js is creating into the final searchable output PDF file.
 ## Usage
 To create a searchable PDF with filename <outputFilename> from <inputFilename>:
 ```javascript
