@@ -1,4 +1,4 @@
-import NodeCanvasFactory from './NodeCanvasFactory';
+import NodeCanvasFactory from './utils/NodeCanvasFactory';
 import { Logger } from './utils/Logger';
 
 export default class Pdf2Png {
