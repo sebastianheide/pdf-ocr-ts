@@ -5,7 +5,10 @@ Under the hood it uses pdf.js to render the pages within a pdf to png files, Jim
 ## Usage
 To create a searchable PDF with filename `outputFilename` from `inputFilename` use:
 ```javascript
-import PdfOcr from "./PdfOcr";
+import PdfOcr from './PdfOcr';
+
+const inputFilename = '../input/scan_test.pdf';
+const outputFilename = '../output/scan_test.pdf';
 
 PdfOcr.createSearchablePdf(inputFilename, outputFilename);
 ```
@@ -13,10 +16,13 @@ In certain contexts it might be more handy to read the input file in some other 
 ```javascript
 import PdfOcr from "./PdfOcr";
 
+const inputFilename = '../input/scan_test.pdf';
+const outputFilename = '../output/scan_test.pdf';
+
 (async () => {
-    const pdf = new Uint8Array(fs.readFileSync(path.resolve(__dirname, inputPdf)));
+    const pdf = new Uint8Array(fs.readFileSync(path.resolve(__dirname, inputFilename)));
     const { pdfBuffer, text } = await PdfOcr.getSearchablePdfBufferBased(pdf);
-    fs.writeFile(path.resolve(__dirname, outputPdf), pdfBuffer, (error) => {
+    fs.writeFile(path.resolve(__dirname, outputFilename), pdfBuffer, (error) => {
       if (error) {
         if (log !== undefined) {
           log('error', `Error: ${error}`);
@@ -65,4 +71,3 @@ function logHelper(level: string, message: string) {
 // pass the logHelper function
 PdfOcr.createSearchablePdf(inputFilename, outputFilename, logHelper);
 ```
-# test
