@@ -63,8 +63,7 @@ const logger = createLogger({
   ),
 });
 
-// wrap winston logger in logHelper to comply with the call signature 
-// <type Logger = (level: string, message: string) => void;>
+// wrap winston logger in logHelper to comply with the call signature (level: string, message: string) => void;
 function logHelper(level: string, message: string) {
   logger.log(level, message);
 }
