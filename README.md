@@ -29,7 +29,7 @@ import PdfOcr from "./PdfOcr";
     });
 })();
 ```
-To generate log output, pdf-ocr-ts supports logging frameworks. It ships with the most simple logger `simpleLog` and supports any logger with the call signature `type Logger = (level: string, message: string) => void;`.
+To generate log output, pdf-ocr-ts supports logging frameworks. It ships with the most simple logger `simpleLog` and supports any logger with the call signature `(level: string, message: string) => void;` (see `./utils/Logger.ts`).
 ```javascript
 import PdfOcr from "./PdfOcr";
 import { simpleLog } from "./utils/Logger";
