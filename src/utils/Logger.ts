@@ -1,0 +1,1 @@
+export type Logger = (level: string, message: string) => void;
