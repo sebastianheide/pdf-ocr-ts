@@ -3,13 +3,13 @@ pdf-ocr-ts creates searchable PDF files out of PDF files that only have images (
 It is javascript-only and hence works without the need to install further tools.
 Under the hood it uses pdf.js to render the pages within a pdf to png files, Jimp to create compressed jpeg images, tesseract.js to perform ocr and pdf-lib to merge the single page pdfs tesseract.js is creating into the final searchable output PDF file.
 ## Usage
-To create a searchable PDF with filename <outputFilename> from <inputFilename>:
+To create a searchable PDF with filename "outputFilename" from "inputFilename"> use:
 ```javascript
 import PdfOcr from "./PdfOcr";
 
 PdfOcr.createSearchablePdf(inputFilename, outputFilename);
 ```
-In certain contexts it might be more handy to read the input file in some other function and also output the searchable PDF in another component. In these cases pdf-ocr-ts offers the function <getSearchablePdfBufferBased(Uint8Array)> that takes a Uint8Array (e.g. created by fs.readFile()), performce ocr and returns the searchable PDF file as Uint8Array. Which can than be used again in fs.writeFile().
+In certain contexts it might be more handy to read the input file in some other function and also output the searchable PDF in another component. In these cases pdf-ocr-ts offers the function "getSearchablePdfBufferBased(Uint8Array)" that takes a Uint8Array (e.g. created by fs.readFile()), performce ocr and returns the searchable PDF file as Uint8Array. Which can than be used again in fs.writeFile().
 ```javascript
 import PdfOcr from "./PdfOcr";
 
@@ -29,7 +29,7 @@ import PdfOcr from "./PdfOcr";
     });
 })();
 ```
-To generate log output, pdf-ocr-ts supports logging frameworks. It ships with the most simple logger "simpleLog" and supports any logger with the call signature <type Logger = (level: string, message: string) => void;>.
+To generate log output, pdf-ocr-ts supports logging frameworks. It ships with the most simple logger "simpleLog" and supports any logger with the call signature "type Logger = (level: string, message: string) => void;".
 ```javascript
 import PdfOcr from "./PdfOcr";
 import { simpleLog } from "./utils/Logger";
@@ -40,7 +40,7 @@ const pdfFileName = "scan_test.pdf";
 
 PdfOcr.createSearchablePdf(inPath + pdfFileName, outPath + pdfFileName, simpleLog);
 ```
-However, it is suited to work with loggers like winston.js via a simple wrapper like <logHelper(level: string, message: string)>.
+However, it is suited to work with loggers like winston.js via a simple wrapper like "logHelper(level: string, message: string)".
 ```javascript
 import PdfOcr from "./PdfOcr";
 import { createLogger, transports, format } from "winston";
