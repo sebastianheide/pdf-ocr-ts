@@ -72,3 +72,5 @@ function logHelper(level: string, message: string) {
 // pass the logHelper function
 PdfOcr.createSearchablePdf(inputFilename, outputFilename, logHelper);
 ```
+
+To build the module from source run `npm run build`.

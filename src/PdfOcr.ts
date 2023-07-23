@@ -15,7 +15,7 @@ export default class PdfOcr {
    * @param {Uint8Array} inputPdf - the contents of a PDF file as Uint8Array
    * @returns {{Uint8Array 'pdfBuffer', string 'text'}} with pdfBuffer being the content of the searchable pdf file and the text as 'text'
    */
-  public static async getSearchablePdfBufferBased(inputPdf: Uint8Array, log?: Logger | undefined) {
+  public static async getSearchablePdfBufferBased(inputPdf: Uint8Array, log?: Logger | undefined, sizeOptimized: boolean = true) {
     const imageBuffers = await Pdf2Png.returnPagesAsPngFileBuffers(inputPdf, log);
     if (log !== undefined) {
       log('info', `performing ocr on ${imageBuffers.length} page(s) ...`);
@@ -23,10 +23,20 @@ export default class PdfOcr {
     const pdfsToMerge: Uint8Array[] = [];
     let texts: string = "";
     for (const image of imageBuffers) {
-      const png = await Jimp.read(image);
-      png.quality(100);
-      const jpg = await png.getBufferAsync(Jimp.MIME_JPEG);
-      const { data: { text, pdf } } = await OcrPng2Pdf.ocrPngBuffer2PdfBuffer(jpg);
+      let img: Buffer;
+      img = image;
+      // to reduce the size of the PDFs, we convert the PNGs to JPGs via Jimp
+      if (sizeOptimized) {
+//        console.log(new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() + ":" + new Date(Date.now()).getSeconds() + " Jimp.read start");
+        const png = await Jimp.read(image);
+//        console.log(new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() + ":" + new Date(Date.now()).getSeconds() + " Jimp.read finished");
+        png.quality(100);
+//        console.log(new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() + ":" + new Date(Date.now()).getSeconds() + " Jimp.getBufferAsync start");
+        const jpg = await png.getBufferAsync(Jimp.MIME_JPEG);
+//        console.log(new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() + ":" + new Date(Date.now()).getSeconds() + " Jimp.getBufferAsync finished");
+        img = jpg;
+      }
+      const { data: { text, pdf } } = await OcrPng2Pdf.ocrPngBuffer2PdfBuffer(img);
       if (pdf !== null) {
         pdfsToMerge.push(new Uint8Array(pdf));
       }
