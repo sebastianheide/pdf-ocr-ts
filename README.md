@@ -12,7 +12,7 @@ const outputFilename = '../output/scan_test.pdf';
 
 PdfOcr.createSearchablePdf(inputFilename, outputFilename);
 ```
-In certain contexts it might be more handy to read the input file in some other function and also output the searchable PDF in another component. In these cases pdf-ocr-ts offers the function `getSearchablePdfBufferBased(Uint8Array)` that takes a `Uint8Array` (e.g. created by fs.readFile()), performce ocr and returns the searchable PDF file as `Uint8Array`. Which can than be used again in fs.writeFile().
+In certain contexts it might be more handy to read the input file in some other function and also output the searchable PDF in another component. In these cases pdf-ocr-ts offers the function `getSearchablePdfBufferBased(Uint8Array)` that takes a `Uint8Array` (e.g. created by fs.readFile()), performs ocr and returns the searchable PDF file as `Uint8Array`. Which can than be used again in fs.writeFile().
 ```javascript
 import PdfOcr from "./PdfOcr";
 
