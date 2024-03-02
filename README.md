@@ -5,7 +5,7 @@ Under the hood it uses pdf.js to render the pages within a pdf to png files, Jim
 ## Usage
 To create a searchable PDF with filename `outputFilename` from `inputFilename` use:
 ```javascript
-import PdfOcr from './PdfOcr';
+import PdfOcr from 'pdf-ocr-ts';
 
 const inputFilename = '../input/scan_test.pdf';
 const outputFilename = '../output/scan_test.pdf';
