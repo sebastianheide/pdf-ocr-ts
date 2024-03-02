@@ -1,6 +1,6 @@
 {
   "name": "pdf-ocr-ts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Javascript-only library to perform OCR on scanned PDFs to turn them into searchable PDFs",
   "main": "./build/PdfOcr.js",
   "dependencies": {
@@ -32,5 +32,9 @@
     "start": "npx ts-node ./src/ocrMyPdf.ts",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sebastianheide/pdf-ocr-ts.git"
   }
 }
