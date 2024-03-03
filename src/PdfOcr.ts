@@ -60,13 +60,13 @@ export default class PdfOcr {
    * @param {string} outputPdf - filename of the output PDF file
    */
   public static async createSearchablePdf(inputPdf: string, outputPdf: string, log?: Logger | undefined) {
-    const data = new Uint8Array(fs.readFileSync(path.resolve(__dirname, inputPdf)));
+    const data = new Uint8Array(fs.readFileSync(path.resolve(process.cwd(), inputPdf)));
     const { pdfBuffer, text } = await this.getSearchablePdfBufferBased(data, log);
     if (log !== undefined) {
       log('debug', text);
       log('info', `writing PDF file with size: ${pdfBuffer.length}`);
     }
-    fs.writeFile(path.resolve(__dirname, outputPdf), pdfBuffer, (error) => {
+    fs.writeFile(path.resolve(process.cwd(), outputPdf), pdfBuffer, (error) => {
       if (error) {
         if (log !== undefined) {
           log('error', `Error: ${error}`);
