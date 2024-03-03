@@ -28,7 +28,7 @@ export default class PdfOcr {
       // to reduce the size of the PDFs, we convert the PNGs to JPGs via Jimp
       if (sizeOptimized) {
         const png = await Jimp.read(image);
-        png.quality(100);
+        png.quality(60);
         const jpg = await png.getBufferAsync(Jimp.MIME_JPEG);
         img = jpg;
       }
