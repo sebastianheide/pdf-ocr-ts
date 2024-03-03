@@ -77,3 +77,5 @@ export default class PdfOcr {
   }
 
 }
+
+module.exports = PdfOcr;

@@ -5,51 +5,48 @@ Under the hood it uses [pdf.js](https://www.npmjs.com/package/pdf.js) to render 
 ## Usage
 To create a searchable PDF with filename `outputFilename` from `inputFilename` use:
 ```javascript
-import PdfOcr from 'pdf-ocr-ts';
+const { default: PdfOcr } = require('pdf-ocr-ts');
 
 const inputFilename = './input/scan_test.pdf';
-const outputFilename = './output/scan_test.pdf';
+const outputFilename = './output/scan_test-searchable.pdf';
 
 PdfOcr.createSearchablePdf(inputFilename, outputFilename);
 ```
 In certain contexts it might be more handy to read the input file in some other function and also output the searchable PDF in another component. In these cases pdf-ocr-ts offers the function `getSearchablePdfBufferBased(Uint8Array)` that takes a `Uint8Array` (e.g. created by fs.readFile()), performs ocr and returns the searchable PDF file as `Uint8Array`. Which can than be used again in fs.writeFile().
 ```javascript
-import PdfOcr from 'pdf-ocr-ts';
+const { default: PdfOcr } = require('pdf-ocr-ts');
+const fs = require('fs');
+const path = require('path');
 
 const inputFilename = './input/scan_test.pdf';
-const outputFilename = './output/scan_test.pdf';
+const outputFilename = './output/scan_test-searchable.pdf';
 
 (async () => {
     const pdf = new Uint8Array(fs.readFileSync(path.resolve(__dirname, inputFilename)));
     const { pdfBuffer, text } = await PdfOcr.getSearchablePdfBufferBased(pdf);
     fs.writeFile(path.resolve(__dirname, outputFilename), pdfBuffer, (error) => {
       if (error) {
-        if (log !== undefined) {
-          log('error', `Error: ${error}`);
-        }
+          console.error(`Error: ${error}`);
       } else {
-        if (log !== undefined) {
-          log('info', `Finished merging PDFs into ${outputPdf}.`);
-        }
+          console.log(`Finished merging PDFs into ${outputFilename}.`);
       }
     });
 })();
 ```
 To generate log output, pdf-ocr-ts supports logging frameworks. It ships with the most simple logger `simpleLog` and supports any logger with the call signature `(level: string, message: string) => void;` (see `./utils/Logger.ts`).
 ```javascript
-import PdfOcr from 'pdf-ocr-ts';
-import { simpleLog } from "./utils/Logger";
+const { default: PdfOcr } = require('pdf-ocr-ts');
+const { simpleLog } = require("pdf-ocr-ts/build/utils/Logger");
 
-const inPath = "./input/";
-const outPath = "./output/";
-const pdfFileName = "scan_test.pdf";
+const inputFilename = './input/scan_test.pdf';
+const outputFilename = './output/scan_test-searchable.pdf';
 
-PdfOcr.createSearchablePdf(inPath + pdfFileName, outPath + pdfFileName, simpleLog);
+PdfOcr.createSearchablePdf(inputFilename, outputFilename, simpleLog);
 ```
 Here's an example for the log library `winston.js` via a simple wrapper like `logHelper(level: string, message: string)`. Internally pdf-ocr-ts uses the log levels: `info`, `error` and `debug`.
 ```javascript
-import PdfOcr from 'pdf-ocr-ts';
-import { createLogger, transports, format } from "winston";
+const { default: PdfOcr } = require('pdf-ocr-ts');
+const { createLogger, transports, format } = require("winston");
 
 // create the winston logger
 const logger = createLogger({
