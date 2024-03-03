@@ -27,13 +27,9 @@ export default class PdfOcr {
       img = image;
       // to reduce the size of the PDFs, we convert the PNGs to JPGs via Jimp
       if (sizeOptimized) {
-//        console.log(new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() + ":" + new Date(Date.now()).getSeconds() + " Jimp.read start");
         const png = await Jimp.read(image);
-//        console.log(new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() + ":" + new Date(Date.now()).getSeconds() + " Jimp.read finished");
         png.quality(100);
-//        console.log(new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() + ":" + new Date(Date.now()).getSeconds() + " Jimp.getBufferAsync start");
         const jpg = await png.getBufferAsync(Jimp.MIME_JPEG);
-//        console.log(new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() + ":" + new Date(Date.now()).getSeconds() + " Jimp.getBufferAsync finished");
         img = jpg;
       }
       const { data: { text, pdf } } = await OcrPng2Pdf.ocrPngBuffer2PdfBuffer(img);
