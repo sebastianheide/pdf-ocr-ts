@@ -17,9 +17,9 @@ export default class OcrPng2Pdf {
     }
 
     public static async ocrPngBuffer2PdfBuffer(pngBuffer: Uint8Array, languageString: string = 'eng+deu') {
-        const worker = await createWorker();
-        await worker.loadLanguage(languageString);
-        await worker.initialize(languageString);
+        const worker = await createWorker(languageString);
+//        await worker.loadLanguage(languageString);
+//        await worker.initialize(languageString);
         const data = await worker.recognize(pngBuffer, {}, {pdf: true});
         await worker.terminate();  
         return data;

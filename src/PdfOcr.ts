@@ -77,6 +77,7 @@ export default class PdfOcr {
         }
       }
     });
+    return text;
   }
 
 }
