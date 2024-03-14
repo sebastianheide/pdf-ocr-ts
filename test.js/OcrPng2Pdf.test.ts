@@ -13,6 +13,7 @@ const testPdfTextFragment3 = "1234 Das ist ein Testdokument mit einem Testtext!"
 
 describe('OcrPng2Pdf', () => {
     it('should return a searchable PDF buffer based on the buffer for the 1st png', async () => {
+        console.log(path.resolve(__dirname, inPath + pngFileName,));
         const png = new Uint8Array(fs.readFileSync(path.resolve(__dirname, inPath + pngFileName,)));
         const { data: { text, pdf } } = await OcrPng2Pdf.ocrPngBuffer2PdfBuffer(png);
         simpleLog("info", text);

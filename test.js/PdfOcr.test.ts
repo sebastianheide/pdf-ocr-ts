@@ -1,4 +1,4 @@
-import {describe, expect, it} from '@jest/globals';
+import {jest, describe, expect, it} from '@jest/globals';
 import PdfOcr from '../src/PdfOcr';
 import fs from 'fs';
 import { simpleLog } from '../src/utils/Logger';
