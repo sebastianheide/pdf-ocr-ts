@@ -45,7 +45,7 @@ export default class PdfOcr {
       log('info', `merging single page PDFs ...`);
     }
     return {
-      'pdfBuffer': await PdfMerge.mergePDFBuffers(pdfsToMerge),
+      'pdfBuffer': await PdfMerge.mergePDFBuffers(pdfsToMerge) as Uint8Array,
       'text': texts
     };
   };
