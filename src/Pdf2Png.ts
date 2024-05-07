@@ -23,7 +23,8 @@ export default class Pdf2Png {
       data,
       cMapUrl: CMAP_URL,
       cMapPacked: CMAP_PACKED,
-      standardFontDataUrl: STANDARD_FONT_DATA_URL
+      standardFontDataUrl: STANDARD_FONT_DATA_URL,
+      isEvalSupported: false
     }); 
 
     const images = [];
