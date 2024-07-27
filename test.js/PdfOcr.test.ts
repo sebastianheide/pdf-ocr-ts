@@ -1,5 +1,5 @@
 import {jest, describe, expect, it} from '@jest/globals';
-import PdfOcr from '../src/PdfOcr';
+//import PdfOcr from '../src/PdfOcr';
 import fs from 'fs';
 import { simpleLog } from '../src/utils/Logger';
 
@@ -9,6 +9,13 @@ const pdfFileName = "scan_test.pdf";
 const testPdfTextFragment1 = "03.02.23, 12:29"; 
 const testPdfTextFragment2 = "Untitled document - Google Docs";
 const testPdfTextFragment3 = "1234 Das ist ein Testdokument mit einem Testtext!";
+
+let PdfOcr;
+
+beforeAll(async () => {
+  const module = await import('../src/PdfOcr');
+  PdfOcr = module.default;
+});
 
 describe('PdfOcr', () => {
     jest.setTimeout(120000);

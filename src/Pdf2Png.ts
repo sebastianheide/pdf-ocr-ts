@@ -5,30 +5,23 @@ import { Logger } from './utils/Logger';
 
 export default class Pdf2Png {
   public static async returnPagesAsPngFileBuffers(data: Uint8Array, log?: Logger | undefined) {
-    const pdfjsLib = require("pdfjs-dist/legacy/build/pdf.js");
-    //const getDocument = (await import("pdfjs-dist/legacy/build/pdf.mjs")).getDocument;
+    const pdfjsLib = await import("pdfjs-dist/legacy/build/pdf.mjs");
     
-    //const loadingTask = await pdfjsLib.getDocument(data);
-
     const CMAP_URL = "../../../node_modules/pdfjs-dist/cmaps/";
     const CMAP_PACKED = true;
-
     const STANDARD_FONT_DATA_URL = "../../../node_modules/pdfjs-dist/standard_fonts/";
-
-//    const loadingTask = pdfjsLib.getDocument(data);
-    
+   
     const canvasFactory = new NodeCanvasFactory();
-
     const loadingTask = pdfjsLib.getDocument({
       data,
       cMapUrl: CMAP_URL,
       cMapPacked: CMAP_PACKED,
       standardFontDataUrl: STANDARD_FONT_DATA_URL,
-      isEvalSupported: false
-    }); 
+      isEvalSupported: false,
+      canvasFactory
+    });
 
     const images = [];
-
     try {
       const pdfDocument = await loadingTask.promise;
       for (let i = 1; i <= pdfDocument.numPages; i++) {
@@ -37,8 +30,7 @@ export default class Pdf2Png {
         }
         const page = await pdfDocument.getPage(i);
         const viewport = page.getViewport({ scale: 4.0 });
-        const canvasFactory = new NodeCanvasFactory();
-        
+       
         const canvasAndContext = canvasFactory.create(
           viewport.width,
           viewport.height
@@ -46,9 +38,7 @@ export default class Pdf2Png {
         const renderContext = {
           canvasContext: canvasAndContext.context,
           viewport,
-          canvasFactory,
         };
-
         const renderTask = page.render(renderContext);
         await renderTask.promise;
         images.push(canvasAndContext.canvas.toBuffer());
@@ -56,12 +46,9 @@ export default class Pdf2Png {
       }
     } catch (reason) {
       if (log !== undefined) {
-        if (typeof reason === 'string')
-        {
+        if (typeof reason === 'string') {
           log('error', reason);
-        }
-        else if (reason instanceof Error)
-        {
+        } else if (reason instanceof Error) {
           log('error', reason.message);
         }
       }
