@@ -1,6 +1,6 @@
 {
   "name": "pdf-ocr-ts",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "Javascript-only library to perform OCR on scanned PDFs to turn them into searchable PDFs",
   "main": "./build/PdfOcr.js",
   "dependencies": {
@@ -10,6 +10,7 @@
     "pdf-ocr-ts": "file:",
     "pdfjs-dist": "^4.5.136",
     "prettier": "^3.2.5",
+    "punycode": "^2.3.1",
     "rimraf": "^5.0.5",
     "tesseract.js": "^5.0.5",
     "ts-jest": "^29.1.2",
