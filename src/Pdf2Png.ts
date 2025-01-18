@@ -1,5 +1,6 @@
 import NodeCanvasFactory from './utils/NodeCanvasFactory';
 import { Logger } from './utils/Logger';
+
 //import pdfjsLib from 'pdfjs-dist';
 //import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 
@@ -8,17 +9,17 @@ export default class Pdf2Png {
     const pdfjsLib = await import("pdfjs-dist/legacy/build/pdf.mjs");
     
     const CMAP_URL = "../../../node_modules/pdfjs-dist/cmaps/";
-    const CMAP_PACKED = true;
-    const STANDARD_FONT_DATA_URL = "../../../node_modules/pdfjs-dist/standard_fonts/";
+    const CMAP_PACKED = true;    // 
+    const { getDocument } = await import("pdfjs-dist/legacy/build/pdf.mjs");
    
+    const STANDARD_FONT_DATA_URL = "../../../node_modules/pdfjs-dist/standard_fonts/";
+
     const canvasFactory = new NodeCanvasFactory();
-    const loadingTask = pdfjsLib.getDocument({
+    const loadingTask = getDocument({
       data,
       cMapUrl: CMAP_URL,
       cMapPacked: CMAP_PACKED,
       standardFontDataUrl: STANDARD_FONT_DATA_URL,
-      isEvalSupported: false,
-      canvasFactory
     });
 
     const images = [];
