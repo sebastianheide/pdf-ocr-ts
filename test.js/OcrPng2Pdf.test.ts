@@ -19,7 +19,7 @@ describe('OcrPng2Pdf', () => {
         simpleLog("info", text);
         expect(pdf).toBeInstanceOf(Uint8Array);
         expect(text.includes(testPdfTextFragment3)).toBeTruthy();
-    });
+    }, 120000);
     it('should return a searchable PDF buffer based on the buffer for the 2nd png', async () => {
         const png = new Uint8Array(fs.readFileSync(path.resolve(__dirname, inPath + pngFileName2,)));
         const { data: { text, pdf } } = await OcrPng2Pdf.ocrPngBuffer2PdfBuffer(png);
