@@ -32,10 +32,17 @@ The workflow requires the following permissions (already configured in the workf
 
 ## Version Management
 
-The workflow automatically bumps the **patch** version on each release. If you need to:
+The workflow automatically bumps the **patch** version on each release (e.g., 1.0.22 → 1.0.23).
 
-- **Minor version bump**: Manually run `npm version minor` before merging to main
-- **Major version bump**: Manually run `npm version major` before merging to main
+If you need a **minor** or **major** version bump:
+
+1. **Before pushing to main**, manually run the version command locally:
+   - Minor version: `npm version minor`
+   - Major version: `npm version major`
+2. Push the version commit and tag: `git push --follow-tags`
+3. The workflow will detect the new version and publish it to npm
+
+Alternatively, you can manually edit the version in `package.json` and push to main. The workflow will publish whatever version is in the file.
 
 ## Preventing Double Releases
 
