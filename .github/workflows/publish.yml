@@ -40,6 +40,12 @@ jobs:
       - name: Bump version
         id: version
         run: |
+          git fetch --tags --prune
+          TAG="v$(node -p "require('./package.json').version")"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            git tag -d "$TAG"
+            git push --delete origin "$TAG" || true
+          fi
           npm version patch -m "chore: bump version to %s [skip ci]"
           echo "new_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
       
