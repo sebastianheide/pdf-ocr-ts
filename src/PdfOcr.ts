@@ -1,7 +1,7 @@
 import Pdf2Png from './Pdf2Png';
 import OcrPng2Pdf from './OcrPng2Pdf';
 import PdfMerge from './PdfMerge';
-import Jimp from 'jimp';
+import { Jimp, JimpMime } from 'jimp';
 import fs from 'fs';
 import path from 'path';
 import { Logger } from './utils/Logger';
@@ -28,8 +28,7 @@ export default class PdfOcr {
       // to reduce the size of the PDFs, we convert the PNGs to JPGs via Jimp
       if (sizeOptimized) {
         const png = await Jimp.read(image);
-        png.quality(60);
-        const jpg = await png.getBufferAsync(Jimp.MIME_JPEG);
+        const jpg = await png.getBuffer(JimpMime.jpeg, { quality: 60 });
         img = jpg;
       }
       const { data: { text, pdf } } = await OcrPng2Pdf.ocrPngBuffer2PdfBuffer(img);
