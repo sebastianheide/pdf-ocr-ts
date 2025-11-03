@@ -71,3 +71,13 @@ PdfOcr.createSearchablePdf(inputFilename, outputFilename, logHelper);
 ```
 
 To build the module from source run `npm run build`.
+
+## Releases
+
+This package uses automated releases to npm. When changes are pushed to the `main` branch, a GitHub Actions workflow automatically:
+1. Bumps the patch version
+2. Builds the package
+3. Publishes to npm
+4. Creates a GitHub release
+
+The npm package requires an `NPM_TOKEN` secret to be configured in the repository settings for authentication.
