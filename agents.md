@@ -365,17 +365,25 @@ When making changes:
 - **canvas** (^2.11.2): Native canvas for Node.js
 - **jimp** (^1.6.0): Image processing for compression
 - **pdf-lib** (^1.17.1): PDF manipulation
-- **pdfjs-dist** (4.5.136): PDF rendering
+- **pdfjs-dist** (4.5.136): PDF rendering (pinned version)
 - **tesseract.js** (^5.0.5): OCR engine
-- **rimraf** (^5.0.5): Cross-platform rm -rf
 - **prettier** (^3.2.5): Code formatting
+- **punycode** (^2.3.1): Unicode encoding/decoding
+- **rimraf** (^5.0.5): Cross-platform rm -rf
+- **ts-jest** (^29.1.2): TypeScript preprocessor for Jest
+- **ts-node** (^10.9.2): TypeScript execution for Node.js
 
 ### Development Dependencies
 - **TypeScript** (^5.3.3): Language compiler
 - **Jest** (^29.7.0): Testing framework
 - **@swc/jest** (^0.2.27): Fast Jest transformer
-- **Babel**: JavaScript transpilation
-- **@types/jest**: TypeScript definitions
+- **@babel/core** (^7.24.9): JavaScript transpilation core
+- **@babel/preset-env** (^7.25.0): Babel environment preset
+- **@babel/preset-typescript** (^7.24.7): Babel TypeScript preset
+- **babel-jest** (^29.7.0): Jest Babel transformer
+- **@swc/core** (^1.3.70): Fast TypeScript/JavaScript compiler
+- **@types/jest** (^29.5.12): TypeScript definitions for Jest
+- **jest-esm-transformer** (^1.0.0): ESM support for Jest
 
 ## Security Considerations
 
