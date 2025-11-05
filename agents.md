@@ -362,13 +362,19 @@ When making changes:
 ## Dependencies Overview
 
 ### Production Dependencies
+
+**Note**: Some build/dev tools (prettier, rimraf, ts-jest, ts-node) are listed in the package.json `dependencies` section rather than `devDependencies`. This is the current configuration in the repository.
+
+**Runtime Dependencies**:
 - **canvas** (^2.11.2): Native canvas for Node.js
 - **jimp** (^1.6.0): Image processing for compression
 - **pdf-lib** (^1.17.1): PDF manipulation
 - **pdfjs-dist** (4.5.136): PDF rendering (pinned version)
 - **tesseract.js** (^5.0.5): OCR engine
-- **prettier** (^3.2.5): Code formatting
 - **punycode** (^2.3.1): Unicode encoding/decoding
+
+**Build/Development Tools** (in dependencies section):
+- **prettier** (^3.2.5): Code formatting
 - **rimraf** (^5.0.5): Cross-platform rm -rf
 - **ts-jest** (^29.1.2): TypeScript preprocessor for Jest
 - **ts-node** (^10.9.2): TypeScript execution for Node.js
