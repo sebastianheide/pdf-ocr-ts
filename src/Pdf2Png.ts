@@ -30,37 +30,18 @@ export default class Pdf2Png {
           log('info', `processing page ${i} of ${pdfDocument.numPages}`);
         }
         const page = await pdfDocument.getPage(i);
-        if (log !== undefined) {
-          log('debug', `page ${i} loaded`);
-        }
         const viewport = page.getViewport({ scale: 4.0 });
-        if (log !== undefined) {
-          log('debug', `viewport for page ${i} calculated`);
-        }
        
         const canvasAndContext = canvasFactory.create(
           viewport.width,
           viewport.height
         );
-        if (log !== undefined) {
-          log('debug', `canvas created for page ${i}`);
-        }
         const renderContext = {
           canvasContext: canvasAndContext.context,
           viewport,
         };
-        if (log !== undefined) {
-          log('debug', `renderContext created for page ${i}`);
-        }
-
         const renderTask = page.render(renderContext);
-        if (log !== undefined) {
-          log('debug', `renderTask started for page ${i}`);
-        }
         await renderTask.promise;
-        if (log !== undefined) {
-          log('debug', `renderTask completed for page ${i} ... pushing image buffer`);
-        }
         images.push(canvasAndContext.canvas.toBuffer());
         page.cleanup();
       }
