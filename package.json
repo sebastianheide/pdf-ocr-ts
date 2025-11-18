@@ -11,7 +11,7 @@
     "pdfjs-dist": "4.5.136",
     "prettier": "^3.2.5",
     "punycode": "^2.3.1",
-    "rimraf": "^5.0.5",
+    "rimraf": "^6.1.0",
     "tesseract.js": "^5.0.5",
     "ts-jest": "^29.1.2"
   },
