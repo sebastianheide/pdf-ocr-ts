@@ -41,12 +41,24 @@ jobs:
         id: version
         run: |
           git fetch --tags --prune
-          TAG="v$(node -p "require('./package.json').version")"
-          if git rev-parse "$TAG" >/dev/null 2>&1; then
-            git tag -d "$TAG"
-            git push --delete origin "$TAG" || true
+          # Get current version and calculate next version
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          NEXT_VERSION=$(node -p "const v = require('./package.json').version.split('.'); v[2] = parseInt(v[2]) + 1; v.join('.')")
+          NEXT_TAG="v${NEXT_VERSION}"
+          
+          echo "Current version: ${CURRENT_VERSION}"
+          echo "Next version: ${NEXT_VERSION}"
+          echo "Next tag: ${NEXT_TAG}"
+          
+          # Delete the next tag if it exists (both locally and remotely)
+          if git rev-parse "$NEXT_TAG" >/dev/null 2>&1; then
+            echo "Tag ${NEXT_TAG} exists, deleting..."
+            git tag -d "$NEXT_TAG" || true
+            git push --delete origin "$NEXT_TAG" || true
             git fetch --tags --prune
           fi
+          
+          # Now bump version
           npm version patch -m "chore: bump version to %s [skip ci]"
           echo "new_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
       
