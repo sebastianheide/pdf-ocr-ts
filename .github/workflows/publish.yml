@@ -45,6 +45,7 @@ jobs:
           if git rev-parse "$TAG" >/dev/null 2>&1; then
             git tag -d "$TAG"
             git push --delete origin "$TAG" || true
+            git fetch --tags --prune
           fi
           npm version patch -m "chore: bump version to %s [skip ci]"
           echo "new_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
