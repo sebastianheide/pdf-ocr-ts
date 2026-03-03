@@ -1,12 +1,11 @@
 import NodeCanvasFactory from './utils/NodeCanvasFactory';
 import { Logger } from './utils/Logger';
-import { fileURLToPath } from 'url';
 import path from 'path';
 
-// Resolve node_modules relative to this source file (works both for src/ and build/)
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const NODE_MODULES = path.resolve(__dirname, '../../node_modules');
+// Resolve the path to node_modules at runtime, relative to the CWD.
+// This avoids import.meta.url (ESM-only) so the file stays compatible with
+// both CJS (Jest) and ESM (built output).
+const NODE_MODULES = path.resolve(process.cwd(), 'node_modules');
 
 export default class Pdf2Png {
   public static async returnPagesAsPngFileBuffers(data: Uint8Array, log?: Logger | undefined) {
