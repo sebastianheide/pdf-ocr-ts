@@ -1,15 +1,15 @@
-import { createCanvas } from 'canvas';
+import Canvas from 'canvas';
 import assert from 'assert';
 
 type CanvasAndContext = {
-    canvas: ReturnType<typeof createCanvas>;
-    context: ReturnType<ReturnType<typeof createCanvas>['getContext']>;
+    canvas: Canvas.Canvas;
+    context: Canvas.CanvasRenderingContext2D;
 }
 
 export default class NodeCanvasFactory {
-    create(width: number, height: number): CanvasAndContext {
+    create(width: number, height: number) {
         assert(width > 0 && height > 0, "Invalid canvas size");
-        const canvas = createCanvas(width, height);
+        const canvas = Canvas.createCanvas(width, height);
         const context = canvas.getContext("2d");
         return {
             canvas,
