@@ -6,12 +6,10 @@ import { Logger } from './utils/Logger';
 
 export default class Pdf2Png {
   public static async returnPagesAsPngFileBuffers(data: Uint8Array, log?: Logger | undefined) {
-    const pdfjsLib = await import("pdfjs-dist/legacy/build/pdf.mjs");
-    
     const CMAP_URL = "../../../node_modules/pdfjs-dist/cmaps/";
-    const CMAP_PACKED = true;    // 
+    const CMAP_PACKED = true;
     const { getDocument } = await import("pdfjs-dist/legacy/build/pdf.mjs");
-   
+
     const STANDARD_FONT_DATA_URL = "../../../node_modules/pdfjs-dist/standard_fonts/";
 
     const canvasFactory = new NodeCanvasFactory();
@@ -31,7 +29,7 @@ export default class Pdf2Png {
         }
         const page = await pdfDocument.getPage(i);
         const viewport = page.getViewport({ scale: 4.0 });
-       
+
         const canvasAndContext = canvasFactory.create(
           viewport.width,
           viewport.height

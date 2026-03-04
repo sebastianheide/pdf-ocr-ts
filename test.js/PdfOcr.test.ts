@@ -1,6 +1,6 @@
-import {jest, describe, expect, it} from '@jest/globals';
-//import PdfOcr from '../src/PdfOcr';
+import {jest, describe, expect, it, beforeAll} from '@jest/globals';
 import fs from 'fs';
+import path from 'path';
 import { simpleLog } from '../src/utils/Logger';
 
 const inPath = "./input/";
@@ -15,6 +15,10 @@ let PdfOcr;
 beforeAll(async () => {
   const module = await import('../src/PdfOcr');
   PdfOcr = module.default;
+  // Ensure output directory exists so the createSearchablePdf test can write its file
+  if (!fs.existsSync(outPath)) {
+    fs.mkdirSync(outPath, { recursive: true });
+  }
 });
 
 describe('PdfOcr', () => {
