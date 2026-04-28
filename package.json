@@ -5,7 +5,7 @@
   "main": "./build/PdfOcr.js",
   "dependencies": {
     "canvas": "^3.2.1",
-    "jimp": "^1.6.0",
+    "jimp": "^1.6.1",
     "pdf-lib": "^1.17.1",
     "pdf-ocr-ts": "file:",
     "pdfjs-dist": "4.7.76",
