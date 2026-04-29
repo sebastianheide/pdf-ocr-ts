@@ -4,5 +4,8 @@ module.exports = {
   },
   transformIgnorePatterns: ['/node_modules/(?!(pdfjs-dist|file-type)/)'],
   testEnvironment: 'node',
+  testEnvironmentOptions: {
+    customExportConditions: ['node', 'require', 'default', 'import'],
+  },
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
 };
