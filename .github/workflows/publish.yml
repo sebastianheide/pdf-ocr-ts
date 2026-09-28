@@ -67,18 +67,23 @@ jobs:
           npm version patch -m "chore: bump version to %s [skip ci]"
           echo "new_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
       
+      # Publish BEFORE pushing the version commit and tag. `npm version` above
+      # only commits and tags locally, so a rejected publish leaves main and the
+      # remote tags untouched and the release can simply be retried. Pushing
+      # first is what left v1.0.38 tagged on main but absent from the registry.
+      #
+      # Authenticates via the npm trusted publisher configured for
+      # sebastianheide/pdf-ocr-ts + publish.yml, using the OIDC token granted
+      # by `id-token: write` above. No NPM_TOKEN needed.
+      - name: Publish to npm
+        run: npm publish --provenance --access public
+      
       - name: Push version commit and tag
         run: |
           git pull --rebase origin main
           git push --follow-tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      # Authenticates via the npm trusted publisher configured for
-      # sebastianheide/pdf-ocr-ts + publish.yml, using the OIDC token granted
-      # by `id-token: write` above. No NPM_TOKEN needed.
-      - name: Publish to npm
-        run: npm publish --provenance --access public
       
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
