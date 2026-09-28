@@ -6,5 +6,5 @@ node_modules
 .vscode
 coverage
 .devcontainer
-.github
+.github/*
 !.github/workflows
