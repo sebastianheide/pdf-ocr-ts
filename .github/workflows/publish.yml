@@ -63,14 +63,18 @@ jobs:
             git fetch --tags --prune
           fi
           
-          # Now bump version
-          npm version patch -m "chore: bump version to %s [skip ci]"
-          echo "new_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+          # Bump package.json/package-lock.json and commit, but do NOT tag yet.
+          # The tag is created after the rebase below, so it cannot end up
+          # pointing at a commit the rebase left outside main's history.
+          npm version patch --no-git-tag-version
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          git commit -am "chore: bump version to ${NEW_VERSION} [skip ci]"
+          echo "new_version=${NEW_VERSION}" >> $GITHUB_OUTPUT
       
-      # Publish BEFORE pushing the version commit and tag. `npm version` above
-      # only commits and tags locally, so a rejected publish leaves main and the
-      # remote tags untouched and the release can simply be retried. Pushing
-      # first is what left v1.0.38 tagged on main but absent from the registry.
+      # Publish BEFORE pushing the version commit and tag. The bump above is a
+      # local commit only, so a rejected publish leaves main and the remote tags
+      # untouched and the release can simply be retried. Pushing first is what
+      # left v1.0.38 tagged on main but absent from the registry.
       #
       # Authenticates via the npm trusted publisher configured for
       # sebastianheide/pdf-ocr-ts + publish.yml, using the OIDC token granted
@@ -81,6 +85,11 @@ jobs:
       - name: Push version commit and tag
         run: |
           git pull --rebase origin main
+          # Tag only now, so it always points at the commit that actually
+          # lands on main rather than at a pre-rebase copy of it. Annotated
+          # (-a), because `git push --follow-tags` skips lightweight tags.
+          git tag -a "v${{ steps.version.outputs.new_version }}" \
+            -m "v${{ steps.version.outputs.new_version }}"
           git push --follow-tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
